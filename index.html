@@ -80,7 +80,7 @@
       font-weight: bold;
     }
 
-    /* Top Horizontal 3-Menu Navigation Bar (Single Row) */
+    /* Top Horizontal 3-Menu Navigation Bar (Single Row, No Wrap) */
     .top-tab-bar {
       display: flex;
       justify-content: space-around;
@@ -95,8 +95,8 @@
 
     .top-tab-btn {
       flex: 1;
-      padding: 10px 5px;
-      font-size: 1.35rem;
+      padding: 10px 2px;
+      font-size: 1.15rem;
       font-weight: bold;
       background: white;
       border: none;
@@ -108,7 +108,9 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
+      gap: 4px;
+      white-space: nowrap !important;
+      letter-spacing: -0.5px;
     }
 
     .top-tab-btn.active {
@@ -733,15 +735,21 @@
       font-family: inherit;
     }
 
-    /* Responsive Panel Switching for Mobile Devices (<= 768px) */
+    /* Responsive Layout & Mobile Non-Breaking Tab Bar Styles */
     @media screen and (max-width: 768px) {
       body {
         height: auto !important;
         overflow-y: auto !important;
       }
 
-      h1 { font-size: 2.2rem; }
-      .recommended-cal { font-size: 0.95rem; padding: 3px 12px; }
+      h1 { font-size: 2.1rem; }
+      .recommended-cal { font-size: 0.9rem; padding: 3px 10px; }
+
+      .top-tab-btn {
+        font-size: 1rem !important;
+        padding: 9px 2px !important;
+        letter-spacing: -0.8px !important;
+      }
 
       .main-container {
         flex-direction: column !important;
@@ -776,6 +784,14 @@
       .input-row label { min-width: auto; margin-top: 0; }
     }
 
+    @media screen and (max-width: 480px) {
+      .top-tab-btn {
+        font-size: 0.92rem !important;
+        padding: 8px 1px !important;
+        letter-spacing: -1px !important;
+      }
+    }
+
     @media print {
       body { height: auto; overflow: visible; background: white; }
       .sidebar, .chatbot-container, .top-tab-bar, .action-buttons, header { display: none !important; }
@@ -793,16 +809,16 @@
     <div class="recommended-cal">⭐ 초등학생 1일 권장 신체활동: 60분 이상 / 주간 목표: 약 1,400 kcal ~ 2,100 kcal 소모 ⭐</div>
   </header>
 
-  <!-- Top Horizontal 3-Menu Navigation Bar (Single Row) -->
+  <!-- Top Horizontal 3-Menu Navigation Bar (Single Row, Fixed 3 Menus) -->
   <div class="top-tab-bar">
-    <button class="top-tab-btn active" id="tab-btn-worksheet" onclick="switchTab('worksheet')">
-      📋 운동 계획표
+    <button class="top-tab-btn active" id="tab-btn-palette" onclick="switchTab('palette')">
+      🏋️‍♂️ 운동고르기
     </button>
-    <button class="top-tab-btn" id="tab-btn-palette" onclick="switchTab('palette')">
-      🏋️‍♂️ 운동 고르기
+    <button class="top-tab-btn" id="tab-btn-worksheet" onclick="switchTab('worksheet')">
+      📋 운동계획표
     </button>
     <button class="top-tab-btn" id="tab-btn-chatbot" onclick="switchTab('chatbot')">
-      🤖 AI 트레이너
+      🤖 AI 헬스 트레이너
     </button>
   </div>
 
@@ -810,7 +826,7 @@
   <div class="main-container">
     
     <!-- Left Sidebar: Exercise Palette -->
-    <div class="sidebar" id="exercise-sidebar" ondrop="dropToTrash(event)" ondragover="allowDrop(event)" ondragleave="dragLeave(event)">
+    <div class="sidebar active-tab" id="exercise-sidebar" ondrop="dropToTrash(event)" ondragover="allowDrop(event)" ondragleave="dragLeave(event)">
       <h2 id="exercise-list-title">건강 운동 항목 (24가지)</h2>
       <div class="search-container">
         <input type="text" id="exercise-search" placeholder="🔍 하고 싶은 운동 검색..." onkeyup="filterExercises()" autocomplete="off">
@@ -820,7 +836,7 @@
     </div>
 
     <!-- Center Main Area: Weekly Worksheet -->
-    <div class="trays-container active-tab" id="main-worksheet-area">
+    <div class="trays-container" id="main-worksheet-area">
       
       <div class="total-day-cal">
         주간 총 운동 시간: <span id="time-total" class="time-number">0</span> 분
@@ -937,26 +953,17 @@
     function switchTab(tabName) {
       const isMobile = window.innerWidth <= 768;
       
-      const btnWorksheet = document.getElementById('tab-btn-worksheet');
       const btnPalette = document.getElementById('tab-btn-palette');
+      const btnWorksheet = document.getElementById('tab-btn-worksheet');
       const btnChatbot = document.getElementById('tab-btn-chatbot');
 
-      const areaWorksheet = document.getElementById('main-worksheet-area');
       const areaPalette = document.getElementById('exercise-sidebar');
+      const areaWorksheet = document.getElementById('main-worksheet-area');
       const areaChatbot = document.getElementById('chatbot-area');
 
-      [btnWorksheet, btnPalette, btnChatbot].forEach(btn => btn.classList.remove('active'));
+      [btnPalette, btnWorksheet, btnChatbot].forEach(btn => btn.classList.remove('active'));
 
-      if (tabName === 'worksheet') {
-        btnWorksheet.classList.add('active');
-        if (isMobile) {
-          areaWorksheet.classList.add('active-tab');
-          areaPalette.classList.remove('active-tab');
-          areaChatbot.classList.remove('active-tab');
-        } else {
-          areaWorksheet.scrollIntoView({ behavior: 'smooth' });
-        }
-      } else if (tabName === 'palette') {
+      if (tabName === 'palette') {
         btnPalette.classList.add('active');
         if (isMobile) {
           areaPalette.classList.add('active-tab');
@@ -964,6 +971,15 @@
           areaChatbot.classList.remove('active-tab');
         } else {
           areaPalette.scrollIntoView({ behavior: 'smooth' });
+        }
+      } else if (tabName === 'worksheet') {
+        btnWorksheet.classList.add('active');
+        if (isMobile) {
+          areaWorksheet.classList.add('active-tab');
+          areaPalette.classList.remove('active-tab');
+          areaChatbot.classList.remove('active-tab');
+        } else {
+          areaWorksheet.scrollIntoView({ behavior: 'smooth' });
         }
       } else if (tabName === 'chatbot') {
         btnChatbot.classList.add('active');
@@ -1305,7 +1321,7 @@
       }
       
       if (window.innerWidth <= 768) {
-        switchTab('worksheet');
+        switchTab('palette');
       }
     });
 
