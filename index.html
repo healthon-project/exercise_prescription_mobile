@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 헬스 트레이너와 함께하는 운동 처방전</title>
+    <link rel="stylesheet" href="styles.css?v=5">
+    <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-layout">
+        <!-- Left Panel: Exercise Items -->
+        <aside class="left-panel">
+            <h2><i class="fas fa-dumbbell"></i> 운동 보관함</h2>
+            <p class="subtitle">원하는 운동을 가운데 시간표로 끌어다 놓으세요!</p>
+            <div class="basis-note"><i class="fas fa-info-circle"></i> <strong>칼로리 근거:</strong> 질병관리청 '한국인을 위한 신체활동 지침' METs 기준 (학생 50kg 기준)</div>
+            <div class="exercise-list">
+                <div class="exercise-card color-run" draggable="true" id="ex-run" data-type="🏃‍♂️ 달리기" data-kcal30="240" data-kcal60="480">
+                    <span class="ex-name">🏃‍♂️ 달리기</span>
+                    <span class="ex-kcal"><i class="fas fa-fire"></i> 30분: 240kcal / 1시간: 480kcal</span>
+                </div>
+                <div class="exercise-card color-swim" draggable="true" id="ex-swim" data-type="🏊‍♀️ 수영" data-kcal30="210" data-kcal60="420">
+                    <span class="ex-name">🏊‍♀️ 수영</span>
+                    <span class="ex-kcal"><i class="fas fa-fire"></i> 30분: 210kcal / 1시간: 420kcal</span>
+                </div>
+                <div class="exercise-card color-bike" draggable="true" id="ex-bike" data-type="🚴‍♂️ 자전거" data-kcal30="180" data-kcal60="360">
+                    <span class="ex-name">🚴‍♂️ 자전거</span>
+                    <span class="ex-kcal"><i class="fas fa-fire"></i> 30분: 180kcal / 1시간: 360kcal</span>
+                </div>
+                <div class="exercise-card color-jump" draggable="true" id="ex-jump" data-type="🪢 줄넘기" data-kcal30="250" data-kcal60="500">
+                    <span class="ex-name">🪢 줄넘기</span>
+                    <span class="ex-kcal"><i class="fas fa-fire"></i> 30분: 250kcal / 1시간: 500kcal</span>
+                </div>
+                <div class="exercise-card color-stretch" draggable="true" id="ex-stretch" data-type="🧘 스트레칭" data-kcal30="90" data-kcal60="180">
+                    <span class="ex-name">🧘 스트레칭</span>
+                    <span class="ex-kcal"><i class="fas fa-fire"></i> 30분: 90kcal / 1시간: 180kcal</span>
+                </div>
+                <div class="exercise-card color-soccer" draggable="true" id="ex-soccer" data-type="⚽ 축구" data-kcal30="220" data-kcal60="440">
+                    <span class="ex-name">⚽ 축구</span>
+                    <span class="ex-kcal"><i class="fas fa-fire"></i> 30분: 220kcal / 1시간: 440kcal</span>
+                </div>
+                <div class="exercise-card color-basket" draggable="true" id="ex-basket" data-type="🏀 농구" data-kcal30="200" data-kcal60="400">
+                    <span class="ex-name">🏀 농구</span>
+                    <span class="ex-kcal"><i class="fas fa-fire"></i> 30분: 200kcal / 1시간: 400kcal</span>
+                </div>
+                <div class="exercise-card color-dance" draggable="true" id="ex-dance" data-type="💃 댄스" data-kcal30="150" data-kcal60="300">
+                    <span class="ex-name">💃 댄스</span>
+                    <span class="ex-kcal"><i class="fas fa-fire"></i> 30분: 150kcal / 1시간: 300kcal</span>
+                </div>
+                <div class="exercise-card color-walk" draggable="true" id="ex-walk" data-type="🚶 걷기" data-kcal30="110" data-kcal60="220">
+                    <span class="ex-name">🚶 걷기</span>
+                    <span class="ex-kcal"><i class="fas fa-fire"></i> 30분: 110kcal / 1시간: 220kcal</span>
+                </div>
+                <div class="exercise-card color-strength" draggable="true" id="ex-strength" data-type="🏋️ 근력운동" data-kcal30="160" data-kcal60="320">
+                    <span class="ex-name">🏋️ 근력운동</span>
+                    <span class="ex-kcal"><i class="fas fa-fire"></i> 30분: 160kcal / 1시간: 320kcal</span>
+                </div>
+                <div class="exercise-card color-pe" draggable="true" id="ex-pe" data-type="🏫 체육시간" data-kcal30="140" data-kcal60="280">
+                    <span class="ex-name">🏫 체육시간</span>
+                    <span class="ex-kcal"><i class="fas fa-fire"></i> 30분: 140kcal / 1시간: 280kcal</span>
+                </div>
+                <div class="exercise-card color-other" draggable="true" id="ex-other" data-type="📌 기타" data-kcal30="120" data-kcal60="240">
+                    <span class="ex-name">📌 기타</span>
+                    <span class="ex-kcal"><i class="fas fa-fire"></i> 30분: 120kcal / 1시간: 240kcal</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Center Panel: Worksheet -->
+        <main class="center-panel">
+            <header class="worksheet-header">
+                <h1>AI 헬스 트레이너와 함께하는<br>운동 처방전!</h1>
+                <div class="robot-header">
+                    <img src="../../brain/f43b3f62-8042-4744-b007-6bbbcc98af48/normal_proportion_robot_1784448004749.png" alt="로봇 트레이너" class="robot-img">
+                    <div class="speech-bubble">
+                        안녕! 나는 너의 AI 헬스 트레이너야.<br>우리 함께 건강해지자!
+                    </div>
+                </div>
+                <div class="student-info-bar">
+                    학년 <input type="text" class="info-input short-input">
+                    반 <input type="text" class="info-input short-input">
+                    이름 <input type="text" class="info-input name-input">
+                </div>
+            </header>
+
+            <h2 class="section-title">1. 나의 주간 운동 계획표</h2>
+            <div class="table-container">
+                <table class="plan-table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>월</th><th>화</th><th>수</th><th>목</th><th>금</th><th>토</th><th class="sunday">일</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th class="row-header">운동<br><span style="font-size:0.8rem; font-weight:normal;">(여기에 놓으세요!)</span></th>
+                            <td class="drop-zone" data-day="mon"></td>
+                            <td class="drop-zone" data-day="tue"></td>
+                            <td class="drop-zone" data-day="wed"></td>
+                            <td class="drop-zone" data-day="thu"></td>
+                            <td class="drop-zone" data-day="fri"></td>
+                            <td class="drop-zone" data-day="sat"></td>
+                            <td class="drop-zone" data-day="sun"></td>
+                        </tr>
+                        <tr>
+                            <th class="row-header">시간</th>
+                            <td><div class="time-wrap"><input type="number" min="0" class="time-input" data-day="mon">분</div></td>
+                            <td><div class="time-wrap"><input type="number" min="0" class="time-input" data-day="tue">분</div></td>
+                            <td><div class="time-wrap"><input type="number" min="0" class="time-input" data-day="wed">분</div></td>
+                            <td><div class="time-wrap"><input type="number" min="0" class="time-input" data-day="thu">분</div></td>
+                            <td><div class="time-wrap"><input type="number" min="0" class="time-input" data-day="fri">분</div></td>
+                            <td><div class="time-wrap"><input type="number" min="0" class="time-input" data-day="sat">분</div></td>
+                            <td><div class="time-wrap"><input type="number" min="0" class="time-input" data-day="sun">분</div></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="total-time-display">
+                총 운동 시간: <span id="total-time" class="highlight-time">0</span> 분
+                <span class="total-kcal-wrapper">(🔥 예상 소모 칼로리: <span id="total-kcal" class="highlight-kcal">0</span> kcal)</span>
+            </div>
+
+            <h2 class="section-title">2. 내가 추천하는 핵심 운동 소개하기</h2>
+            <div class="mission-box">
+                <p><strong>계획한 운동의 올바른 실행 방법을 검색하여 친구들에게 소개해 봅시다.</strong></p>
+                <div class="input-row">
+                    <label>📺 유튜브 링크(또는 QR)</label>
+                    <textarea class="text-input" rows="2" placeholder="유튜브 주소를 붙여넣기 하거나 QR코드를 첨부할 수 있어요."></textarea>
+                </div>
+                <div class="input-row">
+                    <label>💪 올바른 운동 방법</label>
+                    <textarea class="text-input" rows="3" placeholder="검색한 운동의 올바른 자세나 순서, 주의할 점 등을 적어보세요!"></textarea>
+                </div>
+                <div class="input-row">
+                    <label>💬 추천하는 이유</label>
+                    <textarea class="text-input" rows="2" placeholder="이 운동을 추천하는 이유나 다짐을 적어보세요!"></textarea>
+                </div>
+            </div>
+
+            <div class="submit-guide">
+                <p>📸 <strong>과제 제출 방법:</strong> 화면을 예쁘게 캡처해서 선생님이 알려주신 패들렛에 올려주세요!</p>
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn-print" onclick="window.print()"><i class="fas fa-print"></i> 인쇄(PDF 저장)</button>
+                <button class="btn-save" id="btn-save"><i class="fas fa-save"></i> 저장하기</button>
+            </div>
+        </main>
+
+        <!-- Right Panel: Chatbot -->
+        <aside class="right-panel">
+            <h2><i class="fas fa-robot"></i> AI 트레이너 챗봇</h2>
+            <div class="chat-container" id="chat-container">
+                <div class="chat-message bot-message">
+                    안녕! 나는 너의 AI 헬스 트레이너야.<br>어떤 운동을 좋아하는지, 고민이 있는지 편하게 물어봐! 😊
+                </div>
+            </div>
+            <div class="chat-input-area">
+                <input type="text" id="chat-input" placeholder="메시지를 입력하세요...">
+                <button id="chat-send"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </aside>
+    </div>
+    <script src="script.js?v=9"></script>
+</body>
+</html>
