@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>🏋️‍♂️ 나만의 신나는 운동 처방전 만들기 🏃‍♂️</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
@@ -55,62 +55,103 @@
 
     header {
       text-align: center;
-      padding: 12px 0;
-      background: rgba(255, 255, 255, 0.92);
-      box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+      padding: 10px 0 6px 0;
+      background: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.04);
       z-index: 10;
       position: relative;
     }
 
     h1 {
-      font-size: 3.2rem;
+      font-size: 2.8rem;
       color: #ff7e67;
-      text-shadow: 2px 2px 0px #fff, 4px 4px 8px rgba(0,0,0,0.12);
-      margin-bottom: 4px;
+      text-shadow: 2px 2px 0px #fff, 3px 3px 6px rgba(0,0,0,0.1);
+      margin-bottom: 2px;
     }
     
     .recommended-cal {
-      font-size: 1.15rem;
+      font-size: 1.05rem;
       color: #00897b;
       background: #e0f2f1;
       display: inline-block;
-      padding: 4px 22px;
+      padding: 3px 18px;
       border-radius: 20px;
       border: 2px solid #26a69a;
       font-weight: bold;
+    }
+
+    /* Top Horizontal 3-Menu Navigation Bar (Single Row) */
+    .top-tab-bar {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      background: #ffffff;
+      border-top: 2px solid #f1f2f6;
+      border-bottom: 3px solid var(--primary-color);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+      z-index: 90;
+      width: 100%;
+    }
+
+    .top-tab-btn {
+      flex: 1;
+      padding: 10px 5px;
+      font-size: 1.35rem;
+      font-weight: bold;
+      background: white;
+      border: none;
+      border-bottom: 4px solid transparent;
+      color: #57606f;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .top-tab-btn.active {
+      color: #ff4757;
+      border-bottom: 4px solid #ff4757;
+      background: #ffe8e4;
+    }
+
+    .top-tab-btn:hover {
+      background: #f8f9fa;
     }
 
     .main-container {
       display: flex;
       flex: 1;
       overflow: hidden;
-      padding: 18px;
-      gap: 18px;
+      padding: 15px;
+      gap: 15px;
     }
 
     /* Sidebar - Exercise Palette */
     .sidebar {
-      width: 420px;
-      background: rgba(255, 255, 255, 0.88);
+      width: 400px;
+      background: rgba(255, 255, 255, 0.92);
       border-right: 3px dashed var(--primary-color);
       overflow-y: auto;
-      padding: 18px;
+      padding: 15px;
       border-radius: 20px;
       box-shadow: 0 10px 25px rgba(0,0,0,0.08);
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 15px;
       position: relative;
       flex-shrink: 0;
     }
 
     .sidebar h2 {
-      font-size: 1.9rem;
-      margin-bottom: 10px;
+      font-size: 1.8rem;
+      margin-bottom: 8px;
       color: #ff5252;
       text-align: center;
       border-bottom: 3px dashed var(--primary-color);
-      padding-bottom: 8px;
+      padding-bottom: 6px;
       position: sticky;
       top: 0;
       background: white;
@@ -118,13 +159,13 @@
     }
 
     .search-container {
-      margin: 5px 0 10px 0;
+      margin: 2px 0 8px 0;
     }
     
     #exercise-search {
       width: 100%;
-      padding: 10px 16px;
-      font-size: 1.15rem;
+      padding: 8px 14px;
+      font-size: 1.1rem;
       border: 2px solid #ff7e67;
       border-radius: 20px;
       outline: none;
@@ -139,22 +180,22 @@
     }
 
     .exercise-category {
-      margin-bottom: 20px;
+      margin-bottom: 15px;
     }
 
     .category-title {
-      font-size: 1.55rem;
+      font-size: 1.45rem;
       color: #2c3e50;
-      border-bottom: 4px solid var(--secondary-color);
-      padding-bottom: 4px;
-      margin-bottom: 12px;
+      border-bottom: 3px solid var(--secondary-color);
+      padding-bottom: 3px;
+      margin-bottom: 10px;
       font-weight: bold;
     }
 
     .exercise-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(115px, 1fr));
-      gap: 10px;
+      grid-template-columns: repeat(auto-fill, minmax(105px, 1fr));
+      gap: 8px;
     }
 
     .exercise-item {
@@ -163,8 +204,8 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 10px 6px;
-      border-radius: 18px;
+      padding: 8px 4px;
+      border-radius: 16px;
       cursor: grab;
       user-select: none;
       transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -174,7 +215,7 @@
     }
 
     .exercise-item:hover {
-      transform: scale(1.1) translateY(-4px);
+      transform: scale(1.08) translateY(-3px);
       box-shadow: 0 10px 20px rgba(0,0,0,0.15), inset 0 -4px 0 rgba(0,0,0,0.1);
       z-index: 5;
     }
@@ -182,26 +223,26 @@
     .exercise-item:active { cursor: grabbing; }
 
     .exercise-emoji {
-      font-size: 2.6rem;
+      font-size: 2.4rem;
       pointer-events: none;
-      filter: drop-shadow(2px 3px 4px rgba(0,0,0,0.2));
+      filter: drop-shadow(2px 3px 4px rgba(0,0,0,0.18));
     }
 
     .exercise-name {
-      font-size: 1.25rem;
-      margin-top: 4px;
+      font-size: 1.15rem;
+      margin-top: 2px;
       font-weight: bold;
       color: #2f3542;
     }
 
     .exercise-kcal {
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       color: #e65100;
       font-weight: bold;
-      margin-top: 3px;
+      margin-top: 2px;
       background: rgba(255,255,255,0.85);
-      padding: 2px 6px;
-      border-radius: 10px;
+      padding: 2px 5px;
+      border-radius: 8px;
       pointer-events: none;
       font-family: var(--font-body);
       text-align: center;
@@ -212,23 +253,23 @@
     .trays-container {
       flex: 1;
       overflow-y: auto;
-      padding: 5px 15px 80px 15px;
+      padding: 5px 10px 60px 10px;
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 15px;
       align-items: center;
     }
 
     .total-day-cal {
       background: #fff;
-      padding: 12px 35px;
+      padding: 10px 25px;
       border-radius: 30px;
-      font-size: 1.8rem;
+      font-size: 1.6rem;
       font-weight: bold;
       box-shadow: 0 5px 15px rgba(0,0,0,0.08);
       color: #ff7e67;
-      border: 4px dashed #ff7e67;
-      margin-bottom: 5px;
+      border: 3px dashed #ff7e67;
+      margin-bottom: 2px;
       text-align: center;
       transition: all 0.3s;
       width: 100%;
@@ -243,53 +284,53 @@
       width: 100%;
       max-width: 820px;
       background: white;
-      border-radius: 24px;
-      padding: 20px;
+      border-radius: 20px;
+      padding: 16px;
       border: 3px solid var(--primary-color);
-      box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.05);
     }
 
     .student-info-bar {
       display: flex;
       justify-content: flex-end;
-      gap: 15px;
-      font-size: 1.25rem;
-      margin-top: 8px;
+      gap: 12px;
+      font-size: 1.15rem;
+      margin-top: 6px;
     }
 
     .info-input {
       border: none;
       border-bottom: 2px solid var(--text-color);
       font-family: var(--font-body);
-      font-size: 1.15rem;
+      font-size: 1.1rem;
       text-align: center;
       outline: none;
       background: transparent;
     }
     .info-input:focus { border-bottom-color: var(--secondary-color); }
-    .short-input { width: 55px; }
-    .name-input { width: 110px; }
+    .short-input { width: 50px; }
+    .name-input { width: 100px; }
 
     .robot-header {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 15px;
-      margin: 10px 0;
+      gap: 12px;
+      margin: 6px 0;
     }
 
     .robot-img {
-      width: 110px;
+      width: 95px;
       height: auto;
     }
 
     .speech-bubble {
       background-color: #fff;
       border: 3px solid #333;
-      border-radius: 20px;
-      padding: 10px 18px;
+      border-radius: 18px;
+      padding: 8px 15px;
       position: relative;
-      font-size: 1.15rem;
+      font-size: 1.05rem;
       line-height: 1.25;
       color: #333;
       box-shadow: 3px 3px 0 #333;
@@ -321,11 +362,11 @@
       background: #e3f2fd;
       border: 2px solid #90caf9;
       border-radius: 12px;
-      padding: 10px 15px;
-      font-size: 0.95rem;
+      padding: 8px 12px;
+      font-size: 0.9rem;
       color: #1565c0;
-      margin: 12px 0 20px 0;
-      line-height: 1.4;
+      margin: 10px 0 15px 0;
+      line-height: 1.35;
       font-family: var(--font-body);
       text-align: center;
     }
@@ -333,41 +374,41 @@
     /* Weekly Schedule Grid Table */
     .table-container {
       background: white;
-      border-radius: 20px;
+      border-radius: 18px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.05);
       overflow-x: auto;
-      margin-bottom: 15px;
+      margin-bottom: 12px;
       border: 2px solid #e2e8f0;
     }
 
     .plan-table {
       width: 100%;
       border-collapse: collapse;
-      min-width: 600px;
+      min-width: 550px;
     }
 
     .plan-table th, .plan-table td {
       border: 1px solid #cbd5e1;
-      padding: 10px 6px;
+      padding: 8px 4px;
       text-align: center;
     }
 
     .plan-table th {
       background: #fff4e6;
-      font-size: 1.3rem;
+      font-size: 1.2rem;
       color: #334155;
     }
 
     .sunday { color: #ff4757; }
 
     .drop-zone {
-      height: 180px;
+      height: 160px;
       background: #fafafa;
       border: 2px dashed #cbd5e1 !important;
       transition: background 0.3s, transform 0.2s;
       position: relative;
       vertical-align: top;
-      padding: 8px 4px;
+      padding: 6px 3px;
     }
 
     .drop-zone.drag-over {
@@ -378,7 +419,7 @@
 
     @keyframes popIn {
       0% { transform: scale(0); opacity: 0; }
-      70% { transform: scale(1.15); }
+      70% { transform: scale(1.12); }
       100% { transform: scale(1); opacity: 1; }
     }
 
@@ -386,40 +427,40 @@
       animation: popIn 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
       background: var(--primary-color);
       color: white;
-      padding: 8px 6px;
-      border-radius: 12px;
+      padding: 6px 4px;
+      border-radius: 10px;
       font-weight: bold;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       width: 100%;
-      font-size: 0.95rem;
-      box-shadow: 0 3px 6px rgba(0,0,0,0.12);
+      font-size: 0.9rem;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.1);
       position: relative;
-      margin-top: 6px;
+      margin-top: 4px;
       word-break: keep-all;
       cursor: grab;
     }
 
     .dropped-item .dropped-emoji {
-      font-size: 1.8rem;
+      font-size: 1.6rem;
       margin-bottom: 2px;
       pointer-events: none;
-      filter: drop-shadow(1px 2px 3px rgba(0,0,0,0.3));
+      filter: drop-shadow(1px 2px 3px rgba(0,0,0,0.25));
     }
 
     .dropped-item .dropped-name {
-      font-size: 1rem;
+      font-size: 0.95rem;
       pointer-events: none;
     }
 
     .dropped-item .dropped-kcal {
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       background: rgba(255,255,255,0.85);
       color: #e65100;
-      padding: 1px 5px;
-      border-radius: 8px;
+      padding: 1px 4px;
+      border-radius: 6px;
       margin-top: 2px;
       pointer-events: none;
       font-family: var(--font-body);
@@ -427,18 +468,18 @@
 
     .remove-btn {
       position: absolute;
-      top: -6px;
-      right: -6px;
+      top: -5px;
+      right: -5px;
       background: white;
       color: #ff4757;
       border-radius: 50%;
-      width: 22px;
-      height: 22px;
-      font-size: 12px;
-      line-height: 22px;
+      width: 20px;
+      height: 20px;
+      font-size: 11px;
+      line-height: 20px;
       cursor: pointer;
       text-align: center;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.25);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
       display: none;
       z-index: 10;
     }
@@ -449,17 +490,17 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 1.1rem;
+      font-size: 1rem;
     }
 
     .time-input {
-      width: 50px;
+      width: 45px;
       border: none;
       border-bottom: 2px solid #cbd5e1;
       text-align: right;
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       outline: none;
-      margin-right: 4px;
+      margin-right: 3px;
       font-family: var(--font-body);
       background: transparent;
     }
@@ -468,48 +509,48 @@
     /* Mission Box */
     .mission-box {
       background: white;
-      padding: 20px;
-      border-radius: 20px;
+      padding: 16px;
+      border-radius: 18px;
       border: 3px dashed var(--primary-color);
-      margin-top: 15px;
+      margin-top: 12px;
       text-align: left;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.04);
     }
 
     .mission-box p {
-      font-size: 1.2rem;
-      margin-bottom: 15px;
-      line-height: 1.4;
+      font-size: 1.1rem;
+      margin-bottom: 12px;
+      line-height: 1.35;
       color: #2d3748;
     }
 
     .input-row {
       display: flex;
       align-items: flex-start;
-      margin-bottom: 12px;
-      gap: 12px;
+      margin-bottom: 10px;
+      gap: 10px;
     }
 
     .input-row label {
       font-weight: bold;
-      min-width: 170px;
-      font-size: 1.15rem;
-      margin-top: 8px;
+      min-width: 160px;
+      font-size: 1.05rem;
+      margin-top: 6px;
     }
 
     .input-row .text-input {
       flex: 1;
-      padding: 10px 14px;
+      padding: 8px 12px;
       border: 2px solid #e2e8f0;
-      border-radius: 12px;
+      border-radius: 10px;
       font-family: var(--font-body);
-      font-size: 1.05rem;
+      font-size: 1rem;
       outline: none;
     }
 
     textarea.text-input {
       resize: vertical;
-      line-height: 1.4;
+      line-height: 1.35;
     }
 
     .input-row .text-input:focus {
@@ -520,23 +561,23 @@
     .action-buttons {
       display: flex;
       justify-content: center;
-      gap: 16px;
-      margin-top: 25px;
+      gap: 14px;
+      margin-top: 20px;
       flex-wrap: wrap;
     }
 
     .action-buttons button {
-      font-size: 1.3rem;
-      padding: 12px 28px;
+      font-size: 1.2rem;
+      padding: 10px 24px;
       border: none;
-      border-radius: 40px;
+      border-radius: 35px;
       cursor: pointer;
       transition: all 0.2s;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
 
-    .btn-finish { background: #ff4757; color: white; box-shadow: 0 6px 0 #ff6b81, 0 10px 15px rgba(0,0,0,0.15); }
-    .btn-finish:active { transform: translateY(4px); box-shadow: 0 2px 0 #ff6b81; }
+    .btn-finish { background: #ff4757; color: white; box-shadow: 0 5px 0 #ff6b81, 0 8px 12px rgba(0,0,0,0.12); }
+    .btn-finish:active { transform: translateY(3px); box-shadow: 0 2px 0 #ff6b81; }
     .btn-print { background: white; color: #2d3748; border: 2px solid #cbd5e1; }
     .btn-print:hover { background: #f8fafc; }
     .btn-save { background: var(--secondary-color); color: white; }
@@ -554,12 +595,12 @@
       bottom: 20px;
       left: 50%;
       transform: translateX(-50%);
-      font-size: 1.6rem;
+      font-size: 1.5rem;
       color: #ff7675;
       text-align: center;
       background: white;
-      padding: 10px 22px;
-      border-radius: 20px;
+      padding: 8px 18px;
+      border-radius: 18px;
       box-shadow: 0 5px 15px rgba(0,0,0,0.15);
       z-index: 20;
     }
@@ -568,40 +609,40 @@
 
     /* Chatbot Panel */
     .chatbot-container {
-      width: 360px;
+      width: 350px;
       background: #f8f9fa;
       border-left: 3px dashed var(--primary-color);
       display: flex;
       flex-direction: column;
-      box-shadow: -5px 0 15px rgba(0,0,0,0.05);
+      box-shadow: -5px 0 15px rgba(0,0,0,0.04);
       z-index: 10;
       flex-shrink: 0;
-      border-radius: 20px 0 0 20px;
+      border-radius: 18px 0 0 18px;
     }
 
     .chatbot-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 15px 20px;
+      padding: 12px 18px;
       border-bottom: 3px dashed #9c88ff;
       background: white;
-      border-radius: 20px 0 0 0;
+      border-radius: 18px 0 0 0;
     }
 
     .chatbot-header h2 {
-      font-size: 1.8rem;
+      font-size: 1.7rem;
       color: #9c88ff;
       margin: 0;
     }
 
     .chat-messages {
       flex: 1;
-      padding: 15px;
+      padding: 12px;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 12px;
     }
 
     .chat-message {
@@ -615,10 +656,10 @@
     .chat-message.user { align-self: flex-end; }
 
     .chat-bubble {
-      padding: 10px 15px;
-      border-radius: 16px;
-      font-size: 1rem;
-      line-height: 1.4;
+      padding: 8px 13px;
+      border-radius: 15px;
+      font-size: 0.98rem;
+      line-height: 1.35;
       word-break: keep-all;
       word-wrap: break-word;
       font-family: var(--font-body);
@@ -628,7 +669,7 @@
       background: #fff;
       color: #2f3542;
       border-bottom-left-radius: 4px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.06);
       border: 2px solid #9c88ff;
     }
 
@@ -636,24 +677,24 @@
       background: #9c88ff;
       color: #fff;
       border-bottom-right-radius: 4px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.06);
     }
 
     .chat-input-area {
-      padding: 14px 18px;
+      padding: 12px 16px;
       background: #fff;
       border-top: 1px solid #dfe4ea;
       display: flex;
-      gap: 10px;
-      border-radius: 0 0 0 20px;
+      gap: 8px;
+      border-radius: 0 0 0 18px;
     }
 
     #chat-input {
       flex: 1;
-      padding: 10px 14px;
+      padding: 8px 12px;
       border: 2px solid #dfe4ea;
-      border-radius: 20px;
-      font-size: 1.1rem;
+      border-radius: 18px;
+      font-size: 1.05rem;
       font-family: var(--font-body);
       outline: none;
     }
@@ -664,9 +705,9 @@
       background: #9c88ff;
       color: #fff;
       border: none;
-      border-radius: 20px;
-      padding: 0 16px;
-      font-size: 1.15rem;
+      border-radius: 18px;
+      padding: 0 14px;
+      font-size: 1.1rem;
       font-weight: bold;
       cursor: pointer;
       transition: background 0.2s;
@@ -676,44 +717,96 @@
 
     #api-key-area {
       display: none;
-      padding: 12px 18px;
+      padding: 10px 16px;
       background: #fff;
       border-top: 1px dashed #dfe4ea;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       font-family: var(--font-body);
     }
     
     #api-key-area input {
       width: 100%;
-      padding: 8px 12px;
-      margin-top: 6px;
+      padding: 6px 10px;
+      margin-top: 4px;
       border: 1px solid #dfe4ea;
-      border-radius: 8px;
+      border-radius: 6px;
       font-family: inherit;
     }
 
-    /* Scrollbars */
-    ::-webkit-scrollbar { width: 8px; }
-    ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
-    ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    /* Responsive Panel Switching for Mobile Devices (<= 768px) */
+    @media screen and (max-width: 768px) {
+      body {
+        height: auto !important;
+        overflow-y: auto !important;
+      }
+
+      h1 { font-size: 2.2rem; }
+      .recommended-cal { font-size: 0.95rem; padding: 3px 12px; }
+
+      .main-container {
+        flex-direction: column !important;
+        padding: 10px !important;
+        gap: 10px !important;
+        height: auto !important;
+        overflow: visible !important;
+      }
+
+      .sidebar, .trays-container, .chatbot-container {
+        width: 100% !important;
+        max-width: 100% !important;
+        border-radius: 16px !important;
+        border: none !important;
+        box-shadow: none !important;
+        display: none !important;
+      }
+
+      .sidebar.active-tab, .trays-container.active-tab, .chatbot-container.active-tab {
+        display: flex !important;
+      }
+
+      .trays-container.active-tab {
+        padding: 5px 0 60px 0 !important;
+      }
+
+      .chatbot-container.active-tab {
+        height: calc(100vh - 180px) !important;
+      }
+
+      .input-row { flex-direction: column; }
+      .input-row label { min-width: auto; margin-top: 0; }
+    }
 
     @media print {
       body { height: auto; overflow: visible; background: white; }
-      .sidebar, .chatbot-container, .action-buttons, header { display: none !important; }
-      .trays-container { width: 100% !important; padding: 0 !important; }
+      .sidebar, .chatbot-container, .top-tab-bar, .action-buttons, header { display: none !important; }
+      .trays-container { width: 100% !important; padding: 0 !important; display: block !important; }
       .worksheet-card { border: 2px solid black; box-shadow: none; max-width: 100%; }
-      .main-container { padding: 0; }
+      .main-container { padding: 0; display: block; }
     }
   </style>
 </head>
 <body>
 
+  <!-- Header -->
   <header>
-    <h1>🏋️‍♂️ 나만의 신나는 운동 처방전 만들기 🏃‍♂️</h1>
+    <h1>🍱 나만의 신나는 운동 처방전 만들기 🏃‍♂️</h1>
     <div class="recommended-cal">⭐ 초등학생 1일 권장 신체활동: 60분 이상 / 주간 목표: 약 1,400 kcal ~ 2,100 kcal 소모 ⭐</div>
   </header>
 
+  <!-- Top Horizontal 3-Menu Navigation Bar (Single Row) -->
+  <div class="top-tab-bar">
+    <button class="top-tab-btn active" id="tab-btn-worksheet" onclick="switchTab('worksheet')">
+      📋 운동 계획표
+    </button>
+    <button class="top-tab-btn" id="tab-btn-palette" onclick="switchTab('palette')">
+      🏋️‍♂️ 운동 고르기
+    </button>
+    <button class="top-tab-btn" id="tab-btn-chatbot" onclick="switchTab('chatbot')">
+      🤖 AI 트레이너
+    </button>
+  </div>
+
+  <!-- Main Container -->
   <div class="main-container">
     
     <!-- Left Sidebar: Exercise Palette -->
@@ -727,7 +820,7 @@
     </div>
 
     <!-- Center Main Area: Weekly Worksheet -->
-    <div class="trays-container">
+    <div class="trays-container active-tab" id="main-worksheet-area">
       
       <div class="total-day-cal">
         주간 총 운동 시간: <span id="time-total" class="time-number">0</span> 분
@@ -752,7 +845,7 @@
           ℹ️ <strong>소모 칼로리 산출 근거:</strong> 질병관리청 '한국인을 위한 신체활동 지침' METs 데이터 기준 (초등 고학년~중학생 평균 체중 50kg 기준)
         </div>
 
-        <h2 style="font-size: 1.6rem; color: #ff7e67; margin-bottom: 10px;">1. 나의 주간 운동 계획표</h2>
+        <h2 style="font-size: 1.5rem; color: #ff7e67; margin-bottom: 8px;">1. 나의 주간 운동 계획표</h2>
         <div class="table-container">
           <table class="plan-table">
             <thead>
@@ -763,7 +856,7 @@
             </thead>
             <tbody>
               <tr>
-                <th style="font-size: 1.1rem;">운동<br><span style="font-size:0.75rem; font-weight:normal;">(터치/드롭)</span></th>
+                <th style="font-size: 1.05rem;">운동<br><span style="font-size:0.75rem; font-weight:normal;">(터치/드롭)</span></th>
                 <td class="drop-zone" data-day="mon" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="dragLeave(event)"></td>
                 <td class="drop-zone" data-day="tue" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="dragLeave(event)"></td>
                 <td class="drop-zone" data-day="wed" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="dragLeave(event)"></td>
@@ -773,7 +866,7 @@
                 <td class="drop-zone" data-day="sun" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="dragLeave(event)"></td>
               </tr>
               <tr>
-                <th style="font-size: 1.1rem;">시간</th>
+                <th style="font-size: 1.05rem;">시간</th>
                 <td><div class="time-wrap"><input type="number" min="0" class="time-input" data-day="mon" oninput="updateMetrics()">분</div></td>
                 <td><div class="time-wrap"><input type="number" min="0" class="time-input" data-day="tue" oninput="updateMetrics()">분</div></td>
                 <td><div class="time-wrap"><input type="number" min="0" class="time-input" data-day="wed" oninput="updateMetrics()">분</div></td>
@@ -786,7 +879,7 @@
           </table>
         </div>
 
-        <h2 style="font-size: 1.6rem; color: #4fb0c6; margin-top: 20px; margin-bottom: 10px;">2. 내가 추천하는 핵심 운동 소개하기</h2>
+        <h2 style="font-size: 1.5rem; color: #4fb0c6; margin-top: 18px; margin-bottom: 8px;">2. 내가 추천하는 핵심 운동 소개하기</h2>
         <div class="mission-box">
           <p><strong>계획한 운동의 올바른 실행 방법을 검색하여 친구들에게 소개해 봅시다.</strong></p>
           <div class="input-row">
@@ -813,7 +906,7 @@
     </div>
 
     <!-- Right Sidebar: AI Chatbot -->
-    <div class="chatbot-container">
+    <div class="chatbot-container" id="chatbot-area">
       <div class="chatbot-header">
         <h2>AI 영양/트레이너 🤖</h2>
         <button onclick="toggleApiKeyArea()" style="background: none; border: none; cursor: pointer; font-size: 1.5rem; transition: transform 0.2s;" onmouseover="this.style.transform='rotate(45deg)'" onmouseout="this.style.transform='rotate(0deg)'" title="API 키 설정">⚙️</button>
@@ -840,6 +933,50 @@
   </div>
 
   <script>
+    // Tab switching logic for 3 menus in a single row
+    function switchTab(tabName) {
+      const isMobile = window.innerWidth <= 768;
+      
+      const btnWorksheet = document.getElementById('tab-btn-worksheet');
+      const btnPalette = document.getElementById('tab-btn-palette');
+      const btnChatbot = document.getElementById('tab-btn-chatbot');
+
+      const areaWorksheet = document.getElementById('main-worksheet-area');
+      const areaPalette = document.getElementById('exercise-sidebar');
+      const areaChatbot = document.getElementById('chatbot-area');
+
+      [btnWorksheet, btnPalette, btnChatbot].forEach(btn => btn.classList.remove('active'));
+
+      if (tabName === 'worksheet') {
+        btnWorksheet.classList.add('active');
+        if (isMobile) {
+          areaWorksheet.classList.add('active-tab');
+          areaPalette.classList.remove('active-tab');
+          areaChatbot.classList.remove('active-tab');
+        } else {
+          areaWorksheet.scrollIntoView({ behavior: 'smooth' });
+        }
+      } else if (tabName === 'palette') {
+        btnPalette.classList.add('active');
+        if (isMobile) {
+          areaPalette.classList.add('active-tab');
+          areaWorksheet.classList.remove('active-tab');
+          areaChatbot.classList.remove('active-tab');
+        } else {
+          areaPalette.scrollIntoView({ behavior: 'smooth' });
+        }
+      } else if (tabName === 'chatbot') {
+        btnChatbot.classList.add('active');
+        if (isMobile) {
+          areaChatbot.classList.add('active-tab');
+          areaWorksheet.classList.remove('active-tab');
+          areaPalette.classList.remove('active-tab');
+        } else {
+          areaChatbot.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    }
+
     const exerciseData = [
       { cat: "🏃‍♂️ 유산소 운동", color: "#ffe8e4", items: [
         { e:"🏃‍♂️", n:"달리기", c30:240, c60:480 },
@@ -1165,6 +1302,10 @@
         document.getElementById('api-key-area').style.display = 'block';
       } else {
         document.getElementById('api-key-input').value = apiKey;
+      }
+      
+      if (window.innerWidth <= 768) {
+        switchTab('worksheet');
       }
     });
 
