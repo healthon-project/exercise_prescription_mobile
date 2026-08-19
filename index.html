@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>🏋️‍♂️ 나만의 신나는 운동 처방전 만들기 🏃‍♂️</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
@@ -38,6 +38,7 @@
       padding: 0;
       font-family: var(--font-display);
       letter-spacing: 0.5px;
+      -webkit-tap-highlight-color: transparent;
     }
 
     body {
@@ -49,8 +50,9 @@
       color: var(--text-color);
       display: flex;
       flex-direction: column;
-      height: 100vh;
-      overflow: hidden;
+      min-height: 100vh;
+      min-height: 100dvh;
+      overflow-x: hidden;
     }
 
     header {
@@ -91,6 +93,8 @@
       box-shadow: 0 4px 10px rgba(0,0,0,0.06);
       z-index: 90;
       width: 100%;
+      position: sticky;
+      top: 0;
     }
 
     .top-tab-btn {
@@ -111,6 +115,7 @@
       gap: 4px;
       white-space: nowrap !important;
       letter-spacing: -0.5px;
+      touch-action: manipulation;
     }
 
     .top-tab-btn.active {
@@ -214,6 +219,7 @@
       box-shadow: 0 4px 6px rgba(0,0,0,0.06), inset 0 -4px 0 rgba(0,0,0,0.08);
       position: relative;
       border: 2px solid rgba(255,255,255,0.7);
+      touch-action: manipulation;
     }
 
     .exercise-item:hover {
@@ -381,6 +387,7 @@
       overflow-x: auto;
       margin-bottom: 12px;
       border: 2px solid #e2e8f0;
+      -webkit-overflow-scrolling: touch;
     }
 
     .plan-table {
@@ -443,6 +450,7 @@
       margin-top: 4px;
       word-break: keep-all;
       cursor: grab;
+      touch-action: manipulation;
     }
 
     .dropped-item .dropped-emoji {
@@ -486,7 +494,7 @@
       z-index: 10;
     }
 
-    .dropped-item:hover .remove-btn { display: block; }
+    .dropped-item:hover .remove-btn, .dropped-item:active .remove-btn { display: block; }
 
     .time-wrap {
       display: flex;
@@ -576,6 +584,7 @@
       cursor: pointer;
       transition: all 0.2s;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      touch-action: manipulation;
     }
 
     .btn-finish { background: #ff4757; color: white; box-shadow: 0 5px 0 #ff6b81, 0 8px 12px rgba(0,0,0,0.12); }
@@ -735,11 +744,13 @@
       font-family: inherit;
     }
 
-    /* Responsive Layout & Mobile Non-Breaking Tab Bar Styles */
-    @media screen and (max-width: 768px) {
+    /* Responsive Layout & Mobile Non-Breaking Tab Bar Styles (Smartphones & Tablets & Touch Devices) */
+    @media screen and (max-width: 1024px), (pointer: coarse) {
       body {
         height: auto !important;
+        min-height: 100dvh !important;
         overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch;
       }
 
       h1 { font-size: 2.1rem; }
@@ -777,7 +788,7 @@
       }
 
       .chatbot-container.active-tab {
-        height: calc(100vh - 180px) !important;
+        height: calc(100dvh - 180px) !important;
       }
 
       .input-row { flex-direction: column; }
@@ -949,9 +960,16 @@
   </div>
 
   <script>
+    function isMobileEnv() {
+      return window.innerWidth <= 1024 || 
+             ('ontouchstart' in window) || 
+             (navigator.maxTouchPoints > 0) || 
+             /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    }
+
     // Tab switching logic for 3 menus in a single row
     function switchTab(tabName) {
-      const isMobile = window.innerWidth <= 768;
+      const isMobile = isMobileEnv();
       
       const btnPalette = document.getElementById('tab-btn-palette');
       const btnWorksheet = document.getElementById('tab-btn-worksheet');
@@ -1320,8 +1338,15 @@
         document.getElementById('api-key-input').value = apiKey;
       }
       
-      if (window.innerWidth <= 768) {
+      if (isMobileEnv()) {
         switchTab('palette');
+      }
+    });
+
+    window.addEventListener('resize', () => {
+      if (isMobileEnv()) {
+        const activeBtn = document.querySelector('.top-tab-btn.active');
+        if (!activeBtn) switchTab('palette');
       }
     });
 
