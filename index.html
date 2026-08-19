@@ -211,7 +211,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 8px 4px;
+      padding: 10px 4px;
       border-radius: 16px;
       cursor: pointer;
       user-select: none;
@@ -228,7 +228,7 @@
       z-index: 5;
     }
     
-    .exercise-item:active { transform: scale(0.95); }
+    .exercise-item:active { transform: scale(0.94); }
 
     .exercise-emoji {
       font-size: 2.4rem;
@@ -241,6 +241,7 @@
       margin-top: 2px;
       font-weight: bold;
       color: #2f3542;
+      pointer-events: none;
     }
 
     .exercise-kcal {
@@ -602,7 +603,7 @@
     
     .trash-indicator {
       display: none;
-      position: absolute;
+      position. absolute;
       bottom: 20px;
       left: 50%;
       transform: translateX(-50%);
@@ -744,7 +745,7 @@
       font-family: inherit;
     }
 
-    /* Modal Pop-up for Exercise Selection (Day & Time Picker) */
+    /* Modal Pop-up for Exercise Selection (Day & Time Picker Bottom Sheet) */
     .modal-overlay {
       display: none;
       position: fixed;
@@ -843,9 +844,9 @@
       background: #f1f2f6;
       border: 2px solid #dfe4ea;
       border-radius: 12px;
-      padding: 8px 0;
+      padding: 10px 0;
       text-align: center;
-      font-size: 1.15rem;
+      font-size: 1.2rem;
       font-weight: bold;
       color: #57606f;
       cursor: pointer;
@@ -874,12 +875,12 @@
 
     .preset-btn {
       flex: 1;
-      padding: 7px 0;
+      padding: 8px 0;
       background: #e8f8fa;
       border: 2px solid #4fb0c6;
       border-radius: 10px;
       color: #2c3e50;
-      font-size: 1.05rem;
+      font-size: 1.1rem;
       font-weight: bold;
       cursor: pointer;
       transition: all 0.2s;
@@ -900,6 +901,7 @@
       padding: 8px;
       border-radius: 12px;
       border: 2px solid #e2e8f0;
+      font-size: 1.1rem;
     }
 
     .duration-input-wrap input {
@@ -927,8 +929,8 @@
       color: white;
       border: none;
       border-radius: 30px;
-      padding: 12px;
-      font-size: 1.25rem;
+      padding: 14px;
+      font-size: 1.3rem;
       font-weight: bold;
       cursor: pointer;
       box-shadow: 0 4px 12px rgba(255, 71, 87, 0.4);
@@ -947,7 +949,7 @@
       color: #57606f;
       border: 2px solid #dfe4ea;
       border-radius: 30px;
-      padding: 12px;
+      padding: 14px;
       font-size: 1.15rem;
       font-weight: bold;
       cursor: pointer;
@@ -957,6 +959,27 @@
 
     .modal-btn-cancel:hover {
       background: #e4e7eb;
+    }
+
+    /* Mobile Bottom Sheet Drawer Style */
+    @media screen and (max-width: 768px) {
+      .modal-overlay {
+        align-items: flex-end !important;
+        padding: 0 !important;
+      }
+
+      .modal-card {
+        border-radius: 28px 28px 0 0 !important;
+        max-width: 100% !important;
+        padding: 24px 20px 34px 20px !important;
+        border-bottom: none !important;
+        animation: slideUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+      }
+
+      @keyframes slideUp {
+        from { transform: translateY(100%); }
+        to { transform: translateY(0); }
+      }
     }
 
     /* Responsive Layout & Mobile Non-Breaking Tab Bar Styles (Smartphones & Tablets & Touch Devices) */
@@ -1174,8 +1197,8 @@
 
   </div>
 
-  <!-- Exercise Add Pop-up Modal -->
-  <div class="modal-overlay" id="exercise-modal-overlay">
+  <!-- Exercise Add Pop-up Modal (Day & Time Selection Tab) -->
+  <div class="modal-overlay" id="exercise-modal-overlay" onclick="if(event.target===this) closeExerciseModal()">
     <div class="modal-card">
       <div class="modal-header">
         <div class="modal-title-emoji" id="modal-emoji">🏃‍♂️</div>
@@ -1323,17 +1346,39 @@
         const exerciseItem = document.createElement('div');
         exerciseItem.className = 'exercise-item';
         exerciseItem.style.backgroundColor = category.color;
-        exerciseItem.setAttribute('draggable', 'true');
+        
+        // Enable drag for desktop mouse users
+        if (!isMobileEnv()) {
+          exerciseItem.setAttribute('draggable', 'true');
+          exerciseItem.ondragstart = drag;
+        }
+        
         exerciseItem.setAttribute('data-emoji', item.e);
         exerciseItem.setAttribute('data-name', item.n);
         exerciseItem.setAttribute('data-c30', item.c30);
         exerciseItem.setAttribute('data-c60', item.c60);
-        exerciseItem.ondragstart = drag;
+
+        // Reliable touch tap handling for mobile touch screens
+        let isSwiping = false;
+        exerciseItem.addEventListener('touchstart', function() {
+          isSwiping = false;
+        }, { passive: true });
+
+        exerciseItem.addEventListener('touchmove', function() {
+          isSwiping = true;
+        }, { passive: true });
+
+        exerciseItem.addEventListener('touchend', function(e) {
+          if (!isSwiping) {
+            e.preventDefault();
+            openExerciseModal(item);
+          }
+        });
         
-        // Click to open selection modal
-        exerciseItem.onclick = function(e) {
+        // Click for desktop mouse users
+        exerciseItem.addEventListener('click', function(e) {
           openExerciseModal(item);
-        };
+        });
         
         exerciseItem.innerHTML = `
           <div class="exercise-emoji">${item.e}</div>
@@ -1349,14 +1394,14 @@
 
     document.getElementById('exercise-list-title').innerText = `건강 운동 항목 (${totalExerciseCount}가지)`;
 
-    // Open Exercise Modal
+    // Open Exercise Selection Modal
     function openExerciseModal(item) {
       currentModalItem = item;
       document.getElementById('modal-emoji').innerText = item.e;
       document.getElementById('modal-name').innerText = item.n;
       document.getElementById('modal-kcal-info').innerText = `🔥 30분당 ${item.c30} kcal / 1시간당 ${item.c60} kcal`;
 
-      // Reset day selection pills (default select 'mon')
+      // Default select 'mon' (월요일)
       document.querySelectorAll('.day-pill').forEach(pill => {
         if (pill.getAttribute('data-day') === 'mon') {
           pill.classList.add('selected');
