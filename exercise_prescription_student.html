@@ -683,6 +683,7 @@
       z-index: 10;
       flex-shrink: 0;
       border-radius: 18px 0 0 18px;
+      overflow: hidden;
     }
 
     .chatbot-header {
@@ -693,6 +694,7 @@
       border-bottom: 3px dashed #9c88ff;
       background: white;
       border-radius: 18px 0 0 0;
+      flex-shrink: 0;
     }
 
     .chatbot-header h2 {
@@ -704,11 +706,13 @@
 
     .chat-messages {
       flex: 1;
+      min-height: 0; /* Critical for Flex Scrolling */
       padding: 12px;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
       gap: 12px;
+      -webkit-overflow-scrolling: touch;
     }
 
     .chat-message {
@@ -747,7 +751,7 @@
     }
 
     .chat-input-area {
-      padding: 12px 14px;
+      padding: 10px 12px;
       background: #fff;
       border-top: 2px solid #9c88ff;
       display: flex;
@@ -755,6 +759,10 @@
       gap: 8px;
       border-radius: 0 0 18px 18px;
       width: 100%;
+      box-sizing: border-box;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 20;
     }
 
     #chat-input {
@@ -776,7 +784,8 @@
       color: #fff;
       border: none;
       border-radius: 20px;
-      padding: 10px 18px;
+      padding: 0 18px;
+      height: 42px;
       font-size: 1.1rem;
       font-weight: bold;
       cursor: pointer;
@@ -785,6 +794,9 @@
       box-shadow: 0 3px 8px rgba(156, 136, 255, 0.35);
       transition: all 0.2s ease;
       touch-action: manipulation;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .chat-send-btn:active {
@@ -1064,16 +1076,76 @@
         display: none !important;
       }
 
-      .sidebar.active-tab, .trays-container.active-tab, .chatbot-container.active-tab {
+      .sidebar.active-tab, .trays-container.active-tab {
         display: flex !important;
+      }
+
+      /* Mobile Portrait Chatbot Tab Layout Fix (Guarantees bottom input & right send button are 100% visible) */
+      .chatbot-container.active-tab {
+        display: flex !important;
+        flex-direction: column !important;
+        height: calc(100dvh - 130px) !important;
+        max-height: calc(100dvh - 130px) !important;
+        overflow: hidden !important;
+        position: relative !important;
+      }
+
+      .chat-messages {
+        flex: 1 !important;
+        min-height: 0 !important;
+        overflow-y: auto !important;
+        padding: 10px !important;
+      }
+
+      .chat-input-area {
+        flex-shrink: 0 !important;
+        padding: 8px 10px !important;
+        background: #ffffff !important;
+        border-top: 2px solid #9c88ff !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 8px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        position: sticky !important;
+        bottom: 0 !important;
+        z-index: 30 !important;
+      }
+
+      #chat-input {
+        flex: 1 !important;
+        min-width: 0 !important;
+        padding: 8px 12px !important;
+        border: 2px solid #dfe4ea !important;
+        border-radius: 20px !important;
+        font-size: 0.98rem !important;
+        font-family: var(--font-body) !important;
+        outline: none !important;
+        background: #fafafa !important;
+      }
+
+      .chat-send-btn {
+        flex-shrink: 0 !important;
+        width: 60px !important;
+        min-width: 60px !important;
+        height: 38px !important;
+        padding: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        background: #9c88ff !important;
+        color: #ffffff !important;
+        border: none !important;
+        border-radius: 20px !important;
+        font-size: 1rem !important;
+        font-weight: bold !important;
+        white-space: nowrap !important;
+        box-shadow: 0 3px 8px rgba(156, 136, 255, 0.4) !important;
+        cursor: pointer !important;
       }
 
       .trays-container.active-tab {
         padding: 5px 0 60px 0 !important;
-      }
-
-      .chatbot-container.active-tab {
-        height: calc(100dvh - 180px) !important;
       }
 
       .input-row { flex-direction: column; }
@@ -1220,7 +1292,7 @@
     <!-- Right Sidebar: AI Chatbot -->
     <div class="chatbot-container" id="chatbot-area">
       <div class="chatbot-header">
-        <h2>AI 영양/트레이너 🤖</h2>
+        <h2>AI 헬스 트레이너 🤖</h2>
       </div>
       <div id="chat-messages" class="chat-messages">
         <div class="chat-message bot">
