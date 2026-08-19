@@ -150,6 +150,9 @@
       gap: 15px;
       position: relative;
       flex-shrink: 0;
+      touch-action: pan-y;
+      -webkit-overflow-scrolling: touch;
+      scroll-behavior: smooth;
     }
 
     .sidebar h2 {
@@ -205,6 +208,7 @@
       gap: 8px;
     }
 
+    /* Fixed & Solid Exercise Card Styling (Prevents unwanted jittering/movement on touch) */
     .exercise-item {
       width: 100%;
       display: flex;
@@ -215,20 +219,26 @@
       border-radius: 16px;
       cursor: pointer;
       user-select: none;
-      transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      -webkit-user-select: none;
       box-shadow: 0 4px 6px rgba(0,0,0,0.06), inset 0 -4px 0 rgba(0,0,0,0.08);
       position: relative;
       border: 2px solid rgba(255,255,255,0.7);
       touch-action: manipulation;
+      transform: none !important;
+      transition: background-color 0.15s ease, box-shadow 0.15s ease;
     }
 
-    .exercise-item:hover {
-      transform: scale(1.08) translateY(-3px);
-      box-shadow: 0 10px 20px rgba(0,0,0,0.15), inset 0 -4px 0 rgba(0,0,0,0.1);
-      z-index: 5;
+    @media (hover: hover) and (pointer: fine) {
+      .exercise-item:hover {
+        transform: translateY(-2px) !important;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.12), inset 0 -4px 0 rgba(0,0,0,0.1);
+        z-index: 5;
+      }
     }
-    
-    .exercise-item:active { transform: scale(0.94); }
+
+    .exercise-item:active {
+      transform: scale(0.96) !important;
+    }
 
     .exercise-emoji {
       font-size: 2.4rem;
@@ -256,6 +266,49 @@
       font-family: var(--font-body);
       text-align: center;
       line-height: 1.2;
+    }
+
+    /* Palette Floating Scroll Control Buttons (Only Visible on 운동고르기 Tab) */
+    .palette-scroll-btns {
+      position: fixed;
+      right: 18px;
+      bottom: 85px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 85;
+      transition: opacity 0.2s ease, visibility 0.2s ease;
+    }
+
+    .palette-scroll-btns.hidden {
+      opacity: 0 !important;
+      visibility: hidden !important;
+      pointer-events: none !important;
+    }
+
+    .scroll-btn {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: #ff7e67;
+      color: white;
+      border: 3px solid white;
+      font-size: 1.3rem;
+      font-weight: bold;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      touch-action: manipulation;
+      transition: transform 0.15s, background-color 0.2s;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .scroll-btn:active {
+      transform: scale(0.9);
+      background-color: #ff4757;
     }
 
     /* Main Area - Weekly Worksheet */
@@ -1043,7 +1096,7 @@
 
     @media print {
       body { height: auto; overflow: visible; background: white; }
-      .sidebar, .chatbot-container, .top-tab-bar, .action-buttons, header { display: none !important; }
+      .sidebar, .chatbot-container, .top-tab-bar, .action-buttons, header, .palette-scroll-btns { display: none !important; }
       .trays-container { width: 100% !important; padding: 0 !important; display: block !important; }
       .worksheet-card { border: 2px solid black; box-shadow: none; max-width: 100%; }
       .main-container { padding: 0; display: block; }
@@ -1197,6 +1250,12 @@
 
   </div>
 
+  <!-- Palette Floating Scroll Control Buttons (Only Visible on 운동고르기 Tab) -->
+  <div class="palette-scroll-btns" id="palette-scroll-btns">
+    <button class="scroll-btn scroll-up" onclick="scrollPalette(-300)" title="위로 스크롤">▲</button>
+    <button class="scroll-btn scroll-down" onclick="scrollPalette(300)" title="아래로 스크롤">▼</button>
+  </div>
+
   <!-- Exercise Add Pop-up Modal (Day & Time Selection Tab) -->
   <div class="modal-overlay" id="exercise-modal-overlay" onclick="if(event.target===this) closeExerciseModal()">
     <div class="modal-card">
@@ -1250,9 +1309,27 @@
              /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     }
 
+    // Smooth Scroll for Exercise Palette
+    function scrollPalette(amount) {
+      const sidebar = document.getElementById('exercise-sidebar');
+      if (sidebar) {
+        sidebar.scrollBy({ top: amount, behavior: 'smooth' });
+      }
+    }
+
     // Tab switching logic for 3 menus in a single row
     function switchTab(tabName) {
       const isMobile = isMobileEnv();
+
+      // Control Scroll Arrows Visibility (Visible ONLY on palette tab)
+      const scrollBtns = document.getElementById('palette-scroll-btns');
+      if (scrollBtns) {
+        if (tabName === 'palette') {
+          scrollBtns.classList.remove('hidden');
+        } else {
+          scrollBtns.classList.add('hidden'); // Completely hidden on worksheet and chatbot tabs!
+        }
+      }
       
       const btnPalette = document.getElementById('tab-btn-palette');
       const btnWorksheet = document.getElementById('tab-btn-worksheet');
