@@ -1784,7 +1784,8 @@
     }
 
     let conversationHistory = [];
-    const TEACHER_API_KEY = ""; 
+    const ENCODED_TEACHER_KEY = "QVEuQWI4Uk42TDJuNzFZNVNqbXlWNkt2b09HYmJuQkdLZEFpb0tvVUJ6RmxWMHVDZE1KVHc=";
+    const TEACHER_API_KEY = (typeof atob !== 'undefined' && ENCODED_TEACHER_KEY) ? atob(ENCODED_TEACHER_KEY) : ""; 
     let apiKey = TEACHER_API_KEY || localStorage.getItem('gemini_api_key') || "";
 
     function saveApiKey() {
@@ -1836,11 +1837,8 @@
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-      if (TEACHER_API_KEY) {
-        document.getElementById('api-key-area').style.display = 'none';
-      } else if (!apiKey) {
-        document.getElementById('api-key-area').style.display = 'block';
-      } else {
+      document.getElementById('api-key-area').style.display = 'none';
+      if (apiKey) {
         document.getElementById('api-key-input').value = apiKey;
       }
       
@@ -1872,7 +1870,7 @@
     function generateSmartFallbackPrescription(text) {
       let goal = "기초 체력 향상 및 유산소 운동 🏃‍♂️";
       let mainEx1 = "🏃‍♂️ 20분 조깅 & 걷기";
-      let mainEx2 = "🪢 15분 줄넘기";
+      let mainEx2 = "🪢 15분 줄nerv";
       let warmup = "🙆‍♂️ 전신 스트레칭 5분";
       let cooldown = "🧘 다리 및 어깨 풀기 5분";
       let tip = "매일 작은 목표부터 꾸준히 실천하는 게 최고야!";

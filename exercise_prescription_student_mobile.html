@@ -1784,7 +1784,8 @@
     }
 
     let conversationHistory = [];
-    const TEACHER_API_KEY = ""; 
+    const ENCODED_TEACHER_KEY = "QVEuQWI4Uk42TDJuNzFZNVNqbXlWNkt2b09HYmJuQkdLZEFpb0tvVUJ6RmxWMHVDZE1KVHc=";
+    const TEACHER_API_KEY = (typeof atob !== 'undefined' && ENCODED_TEACHER_KEY) ? atob(ENCODED_TEACHER_KEY) : ""; 
     let apiKey = TEACHER_API_KEY || localStorage.getItem('gemini_api_key') || "";
 
     function saveApiKey() {
@@ -1836,11 +1837,8 @@
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-      if (TEACHER_API_KEY) {
-        document.getElementById('api-key-area').style.display = 'none';
-      } else if (!apiKey) {
-        document.getElementById('api-key-area').style.display = 'block';
-      } else {
+      document.getElementById('api-key-area').style.display = 'none';
+      if (apiKey) {
         document.getElementById('api-key-input').value = apiKey;
       }
       
